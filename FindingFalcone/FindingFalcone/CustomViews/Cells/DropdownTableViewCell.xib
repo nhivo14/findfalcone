@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dropdownCell" rowHeight="96" id="KGk-i7-Jjw" customClass="DropdownTableViewCell" customModule="FindingFalcone" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pbl-33-UGE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wCA-Wi-VeL">
+                                <rect key="frame" x="20" y="12" width="85" height="72"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" imagePlacement="trailing" title="Select"/>
+                                <connections>
+                                    <action selector="didTapSelectButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ozK-dh-Z3Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wCA-Wi-VeL" firstAttribute="top" secondItem="Pbl-33-UGE" secondAttribute="top" constant="12" id="DRu-hg-zge"/>
+                            <constraint firstAttribute="bottom" secondItem="wCA-Wi-VeL" secondAttribute="bottom" constant="12" id="Dz4-cj-fq2"/>
+                            <constraint firstItem="wCA-Wi-VeL" firstAttribute="leading" secondItem="Pbl-33-UGE" secondAttribute="leading" constant="20" id="Tgp-TQ-3ME"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Pbl-33-UGE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4ra-qc-Irf"/>
+                    <constraint firstAttribute="bottom" secondItem="Pbl-33-UGE" secondAttribute="bottom" id="Ugl-RZ-noW"/>
+                    <constraint firstAttribute="trailing" secondItem="Pbl-33-UGE" secondAttribute="trailing" id="YtB-Iz-iKJ"/>
+                    <constraint firstItem="Pbl-33-UGE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="qo7-tR-psy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="selectButton" destination="wCA-Wi-VeL" id="Jj2-z5-Dj8"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="113.16964285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
