@@ -7,26 +7,25 @@
 
 import UIKit
 
-struct RadioStruct {
-    let name: String
-    var isSelected: Bool
-}
-
 class ViewController: UIViewController {
     
     @IBOutlet private weak var findFalconeButton: UIButton!
     @IBOutlet private weak var selectionsTableview: UITableView!
     
+    var model = SelectionModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        model.initModel()
         setupUI()
+        
     }
 
-    
     // Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
         print("hhii")
     }
+    
 }
 
 extension ViewController {
@@ -34,6 +33,7 @@ extension ViewController {
         title = "Finding Falcone!"
         selectionsTableview.delegate = self
         selectionsTableview.dataSource = self
+        selectionsTableview.register(UINib(nibName: "DropdownTableViewCell", bundle: nil), forCellReuseIdentifier: "dropdownCell")
         selectionsTableview.register(UINib(nibName: "RadioTableViewCell", bundle: nil), forCellReuseIdentifier: "radioCell")
         
     }
@@ -42,25 +42,51 @@ extension ViewController {
 // UITableViewDelegate
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        model.didSelectVehicle(indexPath: indexPath)
+        tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
     }
 }
 
 // UITableViewDataSource
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return model.destinations[section].vehicleEntities.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "radioCell", for: indexPath) as? RadioTableViewCell else { return UITableViewCell() }
-//        let data = ["Tomato soup", "Mini burgers", "Onion rings", "Baked potato", "Salad"]
-//        cell.configureDropdown(data: data)
-       
-        return cell
+        switch indexPath.row {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "dropdownCell", for: indexPath) as? DropdownTableViewCell else { return UITableViewCell() }
+
+            cell.delegate = self
+            cell.configureDropdown(title: model.destinations[indexPath.section].title, section: indexPath.section)
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "radioCell", for: indexPath) as? RadioTableViewCell else { return UITableViewCell() }
+            cell.configureSelectedItem(vehicleEnity: model.destinations[indexPath.section].vehicleEntities[indexPath.row - 1])
+            cell.selectionStyle = .none
+            return cell
+        }
+        
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return model.destinations.count
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Destination " + "\(section + 1)"
+    }
+}
+
+extension ViewController: DropdownCellDelegate {
+    func getDropdownList() -> [String] {
+        model.getListDropdown()
+    }
+    
+    func getInfoSection(section: Int, title: String) {
+        model.updateInfoSelection(section: section, title: title)
+        selectionsTableview.reloadData()
+    }
+    
 }

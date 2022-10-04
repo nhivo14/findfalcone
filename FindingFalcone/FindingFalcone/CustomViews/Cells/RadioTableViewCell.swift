@@ -14,21 +14,18 @@ class RadioTableViewCell: UITableViewCell {
     
     private let checkedImage = UIImage(systemName: "checkmark.circle.fill")
     private let uncheckedImage = UIImage(systemName: "circle")
-    
+    var section: Int = -1
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
 }
 
 extension RadioTableViewCell {
-    func configureSelectedItem(_ selected: Bool) {
-        setSelected(selected, animated: false)
-        let image = selected ? checkedImage : uncheckedImage
+    func configureSelectedItem(vehicleEnity: VehicleViewEntity) {
+        let image = vehicleEnity.isSelected ? checkedImage : uncheckedImage
         radioImageView.image = image
+        optionLabel.text = vehicleEnity.name + " (\(vehicleEnity.total_no))"
     }
 }

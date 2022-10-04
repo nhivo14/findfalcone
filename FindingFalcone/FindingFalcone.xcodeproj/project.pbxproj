@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A64A4E928EC69F200E99A2E /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A4E828EC69F200E99A2E /* Planet.swift */; };
+		2A64A4EB28EC6A0400E99A2E /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A4EA28EC6A0400E99A2E /* Vehicle.swift */; };
+		2A64A4ED28EC6E4000E99A2E /* SelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A4EC28EC6E4000E99A2E /* SelectionModel.swift */; };
+		2A64A4F028EC8BB200E99A2E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A64A4EF28EC8BB200E99A2E /* NetworkService.swift */; };
 		736168D75C1533E006AEB6F1 /* Pods_FindingFalcone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A182F0A7E85AB43C375FB6 /* Pods_FindingFalcone.framework */; };
 		8A4886F528EA87AF00FBA94C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4886F428EA87AF00FBA94C /* AppDelegate.swift */; };
 		8A4886F728EA87AF00FBA94C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4886F628EA87AF00FBA94C /* SceneDelegate.swift */; };
@@ -22,6 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A64A4E828EC69F200E99A2E /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		2A64A4EA28EC6A0400E99A2E /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		2A64A4EC28EC6E4000E99A2E /* SelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionModel.swift; sourceTree = "<group>"; };
+		2A64A4EF28EC8BB200E99A2E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		46A0C2319E2CF0073F778DA9 /* Pods-FindingFalcone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindingFalcone.release.xcconfig"; path = "Target Support Files/Pods-FindingFalcone/Pods-FindingFalcone.release.xcconfig"; sourceTree = "<group>"; };
 		8A4886F128EA87AF00FBA94C /* FindingFalcone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindingFalcone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4886F428EA87AF00FBA94C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A64A4EE28EC8B9500E99A2E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2A64A4EF28EC8BB200E99A2E /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		7A09E413A0EF0DF19A2EB838 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,9 +98,9 @@
 		8A4886F328EA87AF00FBA94C /* FindingFalcone */ = {
 			isa = PBXGroup;
 			children = (
+				2A64A4EE28EC8B9500E99A2E /* Services */,
 				8A8AD0B428EA9D4C003C0522 /* CustomViews */,
 				8A8AD0C128EAE670003C0522 /* Models */,
-				8A8AD0C228EAE687003C0522 /* ViewModels */,
 				8A8AD0B328EA9D04003C0522 /* ViewControllers */,
 				8A4886F428EA87AF00FBA94C /* AppDelegate.swift */,
 				8A4886F628EA87AF00FBA94C /* SceneDelegate.swift */,
@@ -127,15 +143,11 @@
 		8A8AD0C128EAE670003C0522 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A64A4E828EC69F200E99A2E /* Planet.swift */,
+				2A64A4EA28EC6A0400E99A2E /* Vehicle.swift */,
+				2A64A4EC28EC6E4000E99A2E /* SelectionModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		8A8AD0C228EAE687003C0522 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		906EE4E0EA8553C4581E5260 /* Frameworks */ = {
@@ -263,10 +275,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A64A4F028EC8BB200E99A2E /* NetworkService.swift in Sources */,
+				2A64A4EB28EC6A0400E99A2E /* Vehicle.swift in Sources */,
+				2A64A4ED28EC6E4000E99A2E /* SelectionModel.swift in Sources */,
 				8A4886F928EA87AF00FBA94C /* ViewController.swift in Sources */,
 				8A4886F528EA87AF00FBA94C /* AppDelegate.swift in Sources */,
 				8A4886F728EA87AF00FBA94C /* SceneDelegate.swift in Sources */,
 				8A8AD0BE28EAC095003C0522 /* RadioTableViewCell.swift in Sources */,
+				2A64A4E928EC69F200E99A2E /* Planet.swift in Sources */,
 				8A8AD0B928EAB735003C0522 /* DropdownTableViewCell.swift in Sources */,
 				8A48870928EA8FB900FBA94C /* ResultViewController.swift in Sources */,
 			);
