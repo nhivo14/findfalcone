@@ -6,7 +6,8 @@
 //
 
 import Foundation
-struct Planet {
+
+struct Planet: Codable {
     var name: String
     var distance: Int
 }

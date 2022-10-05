@@ -7,20 +7,21 @@
 
 import Foundation
 
-class SelectionModel {
-    private var listPlanets: [Planet] = [Planet(name: "Donlon", distance: 100),
-                                 Planet(name: "Enchai", distance: 200),
-                                 Planet(name: "Jebing", distance: 300),
-                                 Planet(name: "Sapir", distance: 400),
-                                 Planet(name: "Lerbin", distance: 500),
-                                 Planet(name: "Pingasor", distance: 600)]
-    
-    private var listVehicles: [Vehicle] = [Vehicle(name: "Space pod", total_no: 2, max_distance: 200,
-                                           speed: 2),
-                                   Vehicle(name: "Space rocket", total_no: 1, max_distance: 300, speed: 4),
-                                   Vehicle(name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5),
-                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
-    
+class SelectionModel: NSObject {
+//    private var listPlanets: [Planet] = [Planet(name: "Donlon", distance: 100),
+//                                 Planet(name: "Enchai", distance: 200),
+//                                 Planet(name: "Jebing", distance: 300),
+//                                 Planet(name: "Sapir", distance: 400),
+//                                 Planet(name: "Lerbin", distance: 500),
+//                                 Planet(name: "Pingasor", distance: 600)]
+//    
+//    private var listVehicles: [Vehicle] = [Vehicle(name: "Space pod", total_no: 2, max_distance: 200,
+//                                           speed: 2),
+//                                   Vehicle(name: "Space rocket", total_no: 1, max_distance: 300, speed: 4),
+//                                   Vehicle(name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5),
+//                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
+    private var vehicles: [Vehicle] = []
+    private var planets: [Planet] = []
     var destinations: [Destination] = []
     let network = NetworkService()
 
@@ -29,16 +30,18 @@ class SelectionModel {
                         Destination(),
                         Destination(),
                         Destination()]
+        getListVehicles()
+        getListPlanets()
     }
     
     func getListDropdown() -> [String] {
         let selectedPlanet = destinations.compactMap { $0.title }
-        return listPlanets.filter { !selectedPlanet.contains($0.name) }.map { $0.name }
+        return planets.filter { !selectedPlanet.contains($0.name) }.map { $0.name }
     }
     
     func updateInfoSelection(section: Int, title: String) {
         destinations[section].title = title
-        destinations[section].vehicleEntities = listVehicles.map { VehicleViewEntity(name: $0.name, isSelected: false, isEnable: false, total_no: $0.total_no)}
+        destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name, isSelected: false, isEnable: false, total_no: $0.total_no)}
     }
     
     func didSelectVehicle(indexPath: IndexPath) {
@@ -50,6 +53,35 @@ class SelectionModel {
                 } else {
                     self.destinations[indexPath.section].vehicleEntities[$0].isSelected = false
                 }
+            }
+        }
+    }
+}
+
+// MARK: - Call API
+extension SelectionModel {
+    func getListVehicles() {
+        network.getListVehicles() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case.success(let vehicles):
+                guard let vehicles = vehicles else { return }
+                self.vehicles = vehicles
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func getListPlanets() {
+        network.getListPlanets() { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case.success(let planets):
+                guard let planets = planets else { return }
+                self.planets = planets
+            case .failure(let error):
+                print(error)
             }
         }
     }

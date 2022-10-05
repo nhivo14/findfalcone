@@ -42,6 +42,13 @@ extension NetworkService {
         }
     }
     
+    func getListPlanets(completion: @escaping (Result<[Planet]?, AFError>) -> Void) {
+        let url = "https://findfalcone.herokuapp.com/planets"
+        makeRequest(url: url, method: .get) { (result: Result<[Planet]?, AFError>) in
+            completion(result)
+        }
+    }
+    
 }
 
 //extension NetworkService {

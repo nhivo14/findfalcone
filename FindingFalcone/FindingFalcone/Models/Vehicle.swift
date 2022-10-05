@@ -21,10 +21,6 @@ struct VehicleViewEntity {
     var total_no: Int
 }
 
-struct ListVehiclesResponse: Codable {
-    var data: [Vehicle]
-}
-
 struct Destination {
     var title: String? = nil
     var vehicleEntities: [VehicleViewEntity] = []
