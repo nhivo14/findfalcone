@@ -14,7 +14,9 @@ class ViewController: UIViewController {
 //    let network = NetworkService()
     
     var model = SelectionModel()
-    
+    var planets:[String] = []
+    var vehicles:[String] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         model.initModel()
@@ -27,6 +29,8 @@ class ViewController: UIViewController {
     // Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
         print("hhii")
+        var params = ["" : ""]
+        model.postFind(params: params)
     }
     
 }
@@ -47,6 +51,13 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         model.didSelectVehicle(indexPath: indexPath)
         tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
+        if !vehicles.contains(where:{ $0 == model.vehicles[indexPath.row - 1].name}) && vehicles.count < 1 {
+            vehicles.append(model.vehicles[indexPath.row - 1].name)
+            print(vehicles)
+        }
+        
+        //print(model.vehicles[indexPath.row])
+        //print(model.planets[indexPath.section])
     }
 }
 

@@ -20,8 +20,9 @@ class SelectionModel: NSObject {
 //                                   Vehicle(name: "Space rocket", total_no: 1, max_distance: 300, speed: 4),
 //                                   Vehicle(name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5),
 //                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
-    private var vehicles: [Vehicle] = []
-    private var planets: [Planet] = []
+    public var vehicles: [Vehicle] = []
+    public var planets: [Planet] = []
+    public var falconeRespone:FalconeResponse?
     var destinations: [Destination] = []
     let network = NetworkService()
 
@@ -60,6 +61,18 @@ class SelectionModel: NSObject {
 
 // MARK: - Call API
 extension SelectionModel {
+    func postFind(params: [String: Any]) {
+        network.postFindFalcone(completion: { result in
+            switch result {
+            case.success(let response):
+                print("---------")
+                self.falconeRespone = response
+            case.failure(let error):
+                print(error)
+            }
+        }, params: params)
+    }
+    
     func getListVehicles() {
         network.getListVehicles() { [weak self] result in
             guard let self = self else { return }
@@ -88,4 +101,6 @@ extension SelectionModel {
             }
         }
     }
+    
+    
 }

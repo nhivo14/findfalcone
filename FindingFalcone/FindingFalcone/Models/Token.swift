@@ -10,3 +10,9 @@ var TOKEN = ""
 struct Token: Decodable {
     let token: String
 }
+
+struct FalconeResponse: Decodable {
+    let planet_name: String?
+    let status: String?
+    let error: String?
+}
