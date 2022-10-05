@@ -25,14 +25,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         model.initModel()
         setupUI()
+        model.fetchDataSuccess = { result in
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
+            resultViewController.result = result
+            self.navigationController?.pushViewController(resultViewController, animated: true)
+        }
     }
 
     // MARK: - Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
         model.findFalcone(params: DataRequest(token: TOKEN, planet_names: planets, vehicle_name: vehicles))
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
-//        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
     
 }

@@ -22,9 +22,11 @@ class SelectionModel: NSObject {
 //                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
     private var vehicles: [Vehicle] = []
     private var planets: [Planet] = []
+    private var selectedPlanets: [String] = []
+    private var selctedVehicles: [String] = []
     private var vehicleParams: [VehicleViewEntity] = []
     private var token: String = ""
-    private var finalResult: FinalResult?
+    var fetchDataSuccess: (FinalResult) -> Void = { _ in }
     var destinations: [Destination] = []
     let network = NetworkService()
 
@@ -44,7 +46,17 @@ class SelectionModel: NSObject {
     
     func updateInfoSelection(section: Int, planet: String) {
         destinations[section].planet = planet
-        destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name, isSelected: false, isEnable: false, total_no: $0.total_no)}
+        guard let selectedPlanet = planets.first(where: {$0.name == planet}) else { return }
+        if !selectedPlanets.contains(planet) {
+            selectedPlanets.append(planet)
+        }
+        let distance = selectedPlanet.distance
+        destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name,
+                                                                                 isSelected: false,
+                                                                                 isEnable: $0.max_distance >= distance,
+                                                                                 total_no: $0.total_no,
+                                                                                 max_distance: $0.max_distance,
+                                                                                 speed: $0.speed)}
     }
     
     func didSelectVehicle(indexPath: IndexPath) {
@@ -53,6 +65,7 @@ class SelectionModel: NSObject {
             destinations[indexPath.section].vehicleEntities.indices.forEach {
                 if $0 == indexPath.row - 1 {
                     self.destinations[indexPath.section].vehicleEntities[$0].isSelected = true
+                    
                 } else {
                     self.destinations[indexPath.section].vehicleEntities[$0].isSelected = false
                     
@@ -71,7 +84,7 @@ extension SelectionModel {
             switch result {
             case.success(let finalResult):
                 guard let finalResult = finalResult else { return }
-                self.finalResult = finalResult
+                self.fetchDataSuccess(finalResult)
             case .failure(let error):
                 print(error)
             }

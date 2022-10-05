@@ -19,6 +19,8 @@ struct VehicleViewEntity {
     var isSelected: Bool
     var isEnable: Bool
     var total_no: Int
+    var max_distance: Int
+    var speed: Int
 }
 
 struct Destination {
