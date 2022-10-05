@@ -65,18 +65,6 @@ class SelectionModel: NSObject {
 
 // MARK: - Call API
 extension SelectionModel {
-//    func postFind(params: [String: Any]) {
-//        network.postFindFalcone(completion: { result in
-//            switch result {
-//            case.success(let response):
-//                print("---------")
-//                self.falconeRespone = response
-//            case.failure(let error):
-//                print(error)
-//            }
-//        }, params: params)
-//    }
-    
     func findFalcone(params: DataRequest) {
         network.findFalcone(body: params) { [weak self] result in
             guard let self = self else { return }

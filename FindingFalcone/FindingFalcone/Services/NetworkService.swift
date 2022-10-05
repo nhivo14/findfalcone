@@ -11,8 +11,8 @@ import Alamofire
 class NetworkService {
 //    let header: HTTPHeaders = ["Accept" : "application/json"]
 
-    private func makeRequest<T: Decodable>(url: String, method: HTTPMethod, parameters: Parameters? = nil, header: HTTPHeaders? = nil, completion: @escaping (Result<T?, AFError>) -> Void) {
-        AF.request(url, method: method, parameters: parameters, headers: header).response { response in
+    private func makeRequest<T: Decodable>(url: String, method: HTTPMethod, parameters: Parameters? = nil, encoding: ParameterEncoding = JSONEncoding.default, header: HTTPHeaders? = nil, completion: @escaping (Result<T?, AFError>) -> Void) {
+        AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: header).response { response in
             switch response.result {
             case .failure (let error):
                 completion(.failure(error))
