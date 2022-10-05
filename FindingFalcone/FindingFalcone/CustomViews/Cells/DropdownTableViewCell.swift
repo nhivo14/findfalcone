@@ -9,7 +9,7 @@ import UIKit
 import DropDown
 
 protocol DropdownCellDelegate: AnyObject {
-    func getInfoSection(section: Int, title: String)
+    func getInfoSection(section: Int, planet: String)
     func getDropdownList() -> [String]
 }
 
@@ -39,7 +39,7 @@ class DropdownTableViewCell: UITableViewCell {
         dropdown.selectionAction = { [weak self] (index: Int, item: String) in
               guard let self = self else { return }
             sender.setTitle(item, for: .normal)
-            self.delegate?.getInfoSection(section: self.section, title: item)
+            self.delegate?.getInfoSection(section: self.section, planet: item)
         }
     }
     

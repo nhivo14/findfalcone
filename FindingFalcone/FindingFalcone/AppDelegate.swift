@@ -17,9 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         network.makeNewToken { result in
             switch result {
             case.success(let token):
-                guard let token = token else {
-                    return
-                }
+                guard let token = token else { return }
                 TOKEN = token.token
                 print(TOKEN)
             case.failure(let error):

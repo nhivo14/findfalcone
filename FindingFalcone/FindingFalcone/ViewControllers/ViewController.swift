@@ -15,8 +15,10 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     var model = SelectionModel()
-    var planets:[String] = ["Donlon", "Enchai", "Jebing", "Sapir"]
-    var vehicles:[String] = ["Space pod", "Space rocket", "Space shuttle", "Space ship"]
+    
+    /// hard code for testing
+    var planets: [String] = ["Donlon", "Enchai", "Jebing", "Sapir"]
+    var vehicles: [String] = ["Space pod", "Space rocket", "Space shuttle", "Space ship"]
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -27,7 +29,6 @@ class ViewController: UIViewController {
 
     // MARK: - Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
-        print("hhii")
         model.findFalcone(params: DataRequest(token: TOKEN, planet_names: planets, vehicle_name: vehicles))
 //        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 //        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
@@ -99,8 +100,8 @@ extension ViewController: DropdownCellDelegate {
         model.getListDropdown()
     }
     
-    func getInfoSection(section: Int, title: String) {
-        model.updateInfoSelection(section: section, title: title)
+    func getInfoSection(section: Int, planet: String) {
+        model.updateInfoSelection(section: section, planet: planet)
         selectionsTableview.reloadData()
     }
     

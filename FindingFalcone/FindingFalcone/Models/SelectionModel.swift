@@ -22,6 +22,7 @@ class SelectionModel: NSObject {
 //                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
     private var vehicles: [Vehicle] = []
     private var planets: [Planet] = []
+    private var vehicleParams: [VehicleViewEntity] = []
     private var token: String = ""
     private var finalResult: FinalResult?
     var destinations: [Destination] = []
@@ -41,8 +42,8 @@ class SelectionModel: NSObject {
         return planets.filter { !selectedPlanet.contains($0.name) }.map { $0.name }
     }
     
-    func updateInfoSelection(section: Int, title: String) {
-        destinations[section].planet = title
+    func updateInfoSelection(section: Int, planet: String) {
+        destinations[section].planet = planet
         destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name, isSelected: false, isEnable: false, total_no: $0.total_no)}
     }
     
@@ -54,6 +55,7 @@ class SelectionModel: NSObject {
                     self.destinations[indexPath.section].vehicleEntities[$0].isSelected = true
                 } else {
                     self.destinations[indexPath.section].vehicleEntities[$0].isSelected = false
+                    
                 }
             }
         }
