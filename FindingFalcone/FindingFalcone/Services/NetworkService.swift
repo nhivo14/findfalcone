@@ -11,7 +11,7 @@ import Alamofire
 class NetworkService {
 //    let header: HTTPHeaders = ["Accept" : "application/json"]
 
-    private func makeRequest<T: Decodable>(url: String, method: HTTPMethod, parameters: Parameters? = nil, header: HTTPHeaders, completion: @escaping (Result<T?, AFError>) -> Void) {
+    private func makeRequest<T: Decodable>(url: String, method: HTTPMethod, parameters: Parameters? = nil, header: HTTPHeaders? = nil, completion: @escaping (Result<T?, AFError>) -> Void) {
         AF.request(url, method: method, parameters: parameters, headers: header).response { response in
             switch response.result {
             case .failure (let error):
@@ -29,6 +29,16 @@ class NetworkService {
                     completion(.success(nil))
                 }
             }
+        }
+    }
+    
+}
+
+extension NetworkService {
+    func getListVehicles(completion: @escaping (Result<[Vehicle]?, AFError>) -> Void) {
+        let url = "https://findfalcone.herokuapp.com/vehicles"
+        makeRequest(url: url, method: .get) { (result: Result<[Vehicle]?, AFError>) in
+            completion(result)
         }
     }
     
@@ -68,3 +78,26 @@ class NetworkService {
 //
 
 // git: https://github.com/nhivo14/findfalcone
+
+//class HomeViewModel: NSObject {
+//    let network = NetworkService()
+//    var listUser = [UserResponse]()
+//    var fetchListUserSuccess: () -> Void = { }
+//    var fetchDataFailure: (String) -> Void = { _ in }
+//}
+//
+//extension HomeViewModel {
+//    func getListUser(page: Int, limit: Int) {
+//        network.getListUser(page: page, limit: limit) { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case.success(let listUser):
+//                guard let listUser = listUser else { return }
+//                self.listUser = listUser.data
+//                self.fetchListUserSuccess()
+//            case .failure(let error):
+//                self.fetchDataFailure(error.localizedDescription)
+//            }
+//        }
+//    }
+//}

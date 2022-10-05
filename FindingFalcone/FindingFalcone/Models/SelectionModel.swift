@@ -22,6 +22,7 @@ class SelectionModel {
                                    Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
     
     var destinations: [Destination] = []
+    let network = NetworkService()
 
     func initModel() {
         destinations = [Destination(),

@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     
     @IBOutlet private weak var findFalconeButton: UIButton!
     @IBOutlet private weak var selectionsTableview: UITableView!
+    let network = NetworkService()
     
     var model = SelectionModel()
     
@@ -18,7 +19,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         model.initModel()
         setupUI()
-        
+        // Cai nay dang lam nhap thoi nha m =)))))
+        network.getListVehicles() { result in
+            print(result)
+        }
     }
 
     // Actions

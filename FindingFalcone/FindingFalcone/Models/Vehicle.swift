@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vehicle {
+struct Vehicle: Codable {
     var name: String
     var total_no: Int
     var max_distance: Int
@@ -19,6 +19,10 @@ struct VehicleViewEntity {
     var isSelected: Bool
     var isEnable: Bool
     var total_no: Int
+}
+
+struct ListVehiclesResponse: Codable {
+    var data: [Vehicle]
 }
 
 struct Destination {
