@@ -22,7 +22,7 @@ struct VehicleViewEntity {
 }
 
 struct Destination {
-    var title: String? = nil
+    var planet: String? = nil
     var vehicleEntities: [VehicleViewEntity] = []
 }
 

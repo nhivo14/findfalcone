@@ -9,32 +9,34 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet private weak var findFalconeButton: UIButton!
     @IBOutlet private weak var selectionsTableview: UITableView!
-//    let network = NetworkService()
     
+    // MARK: - Properties
     var model = SelectionModel()
-    var planets:[String] = []
-    var vehicles:[String] = []
+    var planets:[String] = ["Donlon", "Enchai", "Jebing", "Sapir"]
+    var vehicles:[String] = ["Space pod", "Space rocket", "Space shuttle", "Space ship"]
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         model.initModel()
         setupUI()
-//        network.getListVehicles() { result in
-//            print(result)
-//        }
     }
 
-    // Actions
+    // MARK: - Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
         print("hhii")
-        var params = ["" : ""]
-        model.postFind(params: params)
+        model.findFalcone(params: DataRequest(token: TOKEN, planet_names: planets, vehicle_name: vehicles))
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
+//        self.navigationController?.pushViewController(resultViewController, animated: true)
     }
     
 }
 
+// MARK: - Helpers
 extension ViewController {
     func setupUI() {
         title = "Finding Falcone!"
@@ -42,26 +44,23 @@ extension ViewController {
         selectionsTableview.dataSource = self
         selectionsTableview.register(UINib(nibName: "DropdownTableViewCell", bundle: nil), forCellReuseIdentifier: "dropdownCell")
         selectionsTableview.register(UINib(nibName: "RadioTableViewCell", bundle: nil), forCellReuseIdentifier: "radioCell")
-        
     }
 }
 
-// UITableViewDelegate
+// MARK: - UITableViewDelegate
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         model.didSelectVehicle(indexPath: indexPath)
         tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
-        if !vehicles.contains(where:{ $0 == model.vehicles[indexPath.row - 1].name}) && vehicles.count < 1 {
-            vehicles.append(model.vehicles[indexPath.row - 1].name)
-            print(vehicles)
-        }
-        
-        //print(model.vehicles[indexPath.row])
-        //print(model.planets[indexPath.section])
+//        if !vehicles.contains(where:{ $0 == model.vehicles[indexPath.row - 1].name}) && vehicles.count < 1 {
+//            vehicles.append(model.vehicles[indexPath.row - 1].name)
+//            print(vehicles)
+//        }
     }
+    
 }
 
-// UITableViewDataSource
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.destinations[section].vehicleEntities.count + 1
@@ -73,7 +72,7 @@ extension ViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "dropdownCell", for: indexPath) as? DropdownTableViewCell else { return UITableViewCell() }
 
             cell.delegate = self
-            cell.configureDropdown(title: model.destinations[indexPath.section].title, section: indexPath.section)
+            cell.configureDropdown(title: model.destinations[indexPath.section].planet, section: indexPath.section)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "radioCell", for: indexPath) as? RadioTableViewCell else { return UITableViewCell() }
@@ -91,8 +90,10 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Destination " + "\(section + 1)"
     }
+    
 }
 
+// MARK: - DropdownCellDelegate
 extension ViewController: DropdownCellDelegate {
     func getDropdownList() -> [String] {
         model.getListDropdown()

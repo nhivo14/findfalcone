@@ -20,9 +20,10 @@ class SelectionModel: NSObject {
 //                                   Vehicle(name: "Space rocket", total_no: 1, max_distance: 300, speed: 4),
 //                                   Vehicle(name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5),
 //                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
-    public var vehicles: [Vehicle] = []
-    public var planets: [Planet] = []
-    public var falconeRespone:FalconeResponse?
+    private var vehicles: [Vehicle] = []
+    private var planets: [Planet] = []
+    private var token: String = ""
+    private var finalResult: FinalResult?
     var destinations: [Destination] = []
     let network = NetworkService()
 
@@ -36,12 +37,12 @@ class SelectionModel: NSObject {
     }
     
     func getListDropdown() -> [String] {
-        let selectedPlanet = destinations.compactMap { $0.title }
+        let selectedPlanet = destinations.compactMap { $0.planet }
         return planets.filter { !selectedPlanet.contains($0.name) }.map { $0.name }
     }
     
     func updateInfoSelection(section: Int, title: String) {
-        destinations[section].title = title
+        destinations[section].planet = title
         destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name, isSelected: false, isEnable: false, total_no: $0.total_no)}
     }
     
@@ -57,20 +58,34 @@ class SelectionModel: NSObject {
             }
         }
     }
+
 }
 
 // MARK: - Call API
 extension SelectionModel {
-    func postFind(params: [String: Any]) {
-        network.postFindFalcone(completion: { result in
+//    func postFind(params: [String: Any]) {
+//        network.postFindFalcone(completion: { result in
+//            switch result {
+//            case.success(let response):
+//                print("---------")
+//                self.falconeRespone = response
+//            case.failure(let error):
+//                print(error)
+//            }
+//        }, params: params)
+//    }
+    
+    func findFalcone(params: DataRequest) {
+        network.findFalcone(body: params) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case.success(let response):
-                print("---------")
-                self.falconeRespone = response
-            case.failure(let error):
+            case.success(let finalResult):
+                guard let finalResult = finalResult else { return }
+                self.finalResult = finalResult
+            case .failure(let error):
                 print(error)
             }
-        }, params: params)
+        }
     }
     
     func getListVehicles() {
@@ -80,7 +95,6 @@ extension SelectionModel {
             case.success(let vehicles):
                 guard let vehicles = vehicles else { return }
                 self.vehicles = vehicles
-                print(vehicles)
             case .failure(let error):
                 print(error)
             }
@@ -94,13 +108,10 @@ extension SelectionModel {
             case.success(let planets):
                 guard let planets = planets else { return }
                 self.planets = planets
-                print(planets)
-
             case .failure(let error):
                 print(error)
             }
         }
     }
-    
     
 }

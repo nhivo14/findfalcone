@@ -24,6 +24,7 @@
 		8A8AD0BA28EAB735003C0522 /* DropdownTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8AD0B828EAB735003C0522 /* DropdownTableViewCell.xib */; };
 		8A8AD0BE28EAC095003C0522 /* RadioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8AD0BC28EAC095003C0522 /* RadioTableViewCell.swift */; };
 		8A8AD0BF28EAC095003C0522 /* RadioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A8AD0BD28EAC095003C0522 /* RadioTableViewCell.xib */; };
+		8AE9D4B528ED57B100AEE2BB /* DataRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE9D4B428ED57B100AEE2BB /* DataRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		8A8AD0B828EAB735003C0522 /* DropdownTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropdownTableViewCell.xib; sourceTree = "<group>"; };
 		8A8AD0BC28EAC095003C0522 /* RadioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioTableViewCell.swift; sourceTree = "<group>"; };
 		8A8AD0BD28EAC095003C0522 /* RadioTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioTableViewCell.xib; sourceTree = "<group>"; };
+		8AE9D4B428ED57B100AEE2BB /* DataRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequest.swift; sourceTree = "<group>"; };
 		AC14CE7848BBD2A79ACFD156 /* Pods-FindingFalcone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindingFalcone.debug.xcconfig"; path = "Target Support Files/Pods-FindingFalcone/Pods-FindingFalcone.debug.xcconfig"; sourceTree = "<group>"; };
 		E7A182F0A7E85AB43C375FB6 /* Pods_FindingFalcone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FindingFalcone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,8 +149,9 @@
 			children = (
 				2A64A4E828EC69F200E99A2E /* Planet.swift */,
 				2A64A4EA28EC6A0400E99A2E /* Vehicle.swift */,
-				2A64A4EC28EC6E4000E99A2E /* SelectionModel.swift */,
 				0CEDD97028ED2FD100B74626 /* Token.swift */,
+				8AE9D4B428ED57B100AEE2BB /* DataRequest.swift */,
+				2A64A4EC28EC6E4000E99A2E /* SelectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				2A64A4F028EC8BB200E99A2E /* NetworkService.swift in Sources */,
 				2A64A4EB28EC6A0400E99A2E /* Vehicle.swift in Sources */,
 				2A64A4ED28EC6E4000E99A2E /* SelectionModel.swift in Sources */,
+				8AE9D4B528ED57B100AEE2BB /* DataRequest.swift in Sources */,
 				8A4886F928EA87AF00FBA94C /* ViewController.swift in Sources */,
 				8A4886F528EA87AF00FBA94C /* AppDelegate.swift in Sources */,
 				8A4886F728EA87AF00FBA94C /* SceneDelegate.swift in Sources */,

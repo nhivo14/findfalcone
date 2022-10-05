@@ -6,13 +6,15 @@
 //
 
 import Foundation
+
 var TOKEN = ""
+
 struct Token: Decodable {
-    let token: String
+    var token: String
 }
 
-struct FalconeResponse: Decodable {
-    let planet_name: String?
-    let status: String?
-    let error: String?
+struct FinalResult: Codable {
+    var planet_name: String?
+    var status: String?
+    var error: String?
 }

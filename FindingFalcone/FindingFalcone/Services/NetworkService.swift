@@ -35,10 +35,11 @@ class NetworkService {
 }
 
 extension NetworkService {
-    func postFindFalcone(completion: @escaping (Result<FalconeResponse?, AFError>) -> Void, params:[String: Any]) {
+    func findFalcone(body: DataRequest, completion: @escaping (Result<FinalResult?, AFError>) -> Void) {
         let url = "https://findfalcone.herokuapp.com/find"
         let headers: HTTPHeaders = [.accept("application/json"), .contentType("application/json")]
-        makeRequest(url: url, method: .post, parameters: params, header: headers) { (result: Result<FalconeResponse?, AFError>) in
+        let params = ["token" : body.token, "planet_names" : body.planet_names, "vehicle_names" : body.vehicle_name] as [String : Any]
+        makeRequest(url: url, method: .post, parameters: params, header: headers) { (result: Result<FinalResult?, AFError>) in
             completion(result)
         }
     }
@@ -66,61 +67,3 @@ extension NetworkService {
     }
     
 }
-
-//extension NetworkService {
-//
-//    func getListUser(page: Int, limit: Int, completion: @escaping (Result<ListUserResponse?, AFError>) -> Void) {
-//        let url = "https://dummyapi.io/data/v1/user?page=\(page)&limit=\(limit)"
-//        makeRequest(url: url, method: .get ) { (result: Result<ListUserResponse?, AFError>)  in
-//            completion(result)
-//        }
-//    }
-//
-//    func getUserById(id: String, completion: @escaping (Result<UserResponse?, AFError>) -> Void) {
-//        let url = "https://dummyapi.io/data/v1/user/" + id
-//        makeRequest(url: url, method: .get) { (result: Result<UserResponse?, AFError>) in
-//            completion(result)
-//        }
-//    }
-//
-//    func updateUser(body: UserResponse, completion: @escaping (Result<UserResponse?, AFError>) -> Void) {
-//        let params = ["fisrtName": body.firstName, "lastName": body.lastName]
-//        let url = "https://dummyapi.io/data/v1/user/" + body.id
-//        makeRequest(url: url, method: .put, parameters: params) { (result: Result<UserResponse?, AFError>) in
-//            completion(result)
-//        }
-//    }
-//
-//    func deleteUser(id: String, completion: @escaping (Result<DeleteUserResponse?, AFError>) -> Void) {
-//        let url = "https://dummyapi.io/data/v1/user/" + id
-//        makeRequest(url: url, method: .delete) { (result: Result<DeleteUserResponse?, AFError>) in
-//            completion(result)
-//        }
-//    }
-//}
-//
-
-// git: https://github.com/nhivo14/findfalcone
-
-//class HomeViewModel: NSObject {
-//    let network = NetworkService()
-//    var listUser = [UserResponse]()
-//    var fetchListUserSuccess: () -> Void = { }
-//    var fetchDataFailure: (String) -> Void = { _ in }
-//}
-//
-//extension HomeViewModel {
-//    func getListUser(page: Int, limit: Int) {
-//        network.getListUser(page: page, limit: limit) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case.success(let listUser):
-//                guard let listUser = listUser else { return }
-//                self.listUser = listUser.data
-//                self.fetchListUserSuccess()
-//            case .failure(let error):
-//                self.fetchDataFailure(error.localizedDescription)
-//            }
-//        }
-//    }
-//}
