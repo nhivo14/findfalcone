@@ -11,9 +11,22 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
+    let network = NetworkService()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        network.makeNewToken { result in
+            switch result {
+            case.success(let token):
+                guard let token = token else {
+                    return
+                }
+                TOKEN = token.token
+                print(TOKEN)
+            case.failure(let error):
+                print(error)
+            }
+        }
         return true
     }
 

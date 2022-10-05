@@ -67,6 +67,7 @@ extension SelectionModel {
             case.success(let vehicles):
                 guard let vehicles = vehicles else { return }
                 self.vehicles = vehicles
+                print(vehicles)
             case .failure(let error):
                 print(error)
             }
@@ -80,6 +81,8 @@ extension SelectionModel {
             case.success(let planets):
                 guard let planets = planets else { return }
                 self.planets = planets
+                print(planets)
+
             case .failure(let error):
                 print(error)
             }

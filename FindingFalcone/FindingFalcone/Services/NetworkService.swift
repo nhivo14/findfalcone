@@ -35,6 +35,15 @@ class NetworkService {
 }
 
 extension NetworkService {
+    
+    func makeNewToken(completion: @escaping (Result<Token?, AFError>) -> Void) {
+        let url = "https://findfalcone.herokuapp.com/token"
+        let headers: HTTPHeaders = [.accept("application/json")]
+        makeRequest(url: url, method: .post, header: headers) { (result: Result<Token?, AFError>) in
+            completion(result)
+        }
+    }
+    
     func getListVehicles(completion: @escaping (Result<[Vehicle]?, AFError>) -> Void) {
         let url = "https://findfalcone.herokuapp.com/vehicles"
         makeRequest(url: url, method: .get) { (result: Result<[Vehicle]?, AFError>) in
