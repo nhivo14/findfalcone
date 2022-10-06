@@ -15,9 +15,15 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var planetLabel: UILabel!
     
     var result: FinalResult?
+    var timeTaken: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
 
     @IBAction func didTapStartAgain(_ sender: Any) {
@@ -30,7 +36,8 @@ extension ResultViewController {
         guard let result = result else { return }
         statusLabel.text = result.status?.uppercased() ?? ""
         errorLabel.text = result.error ?? ""
-        planetLabel.text = result.planet_name ?? ""
+        planetLabel.text = "Planet: " + (result.planet_name ?? "")
+        timeTakenLabel.text = "Time taken: " + "\(timeTaken ?? 0)"
         errorLabel.isHidden = result.error == nil ? true : false
         if result.status != nil {
             statusLabel.isHidden = false

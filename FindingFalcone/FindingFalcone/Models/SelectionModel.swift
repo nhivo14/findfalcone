@@ -22,8 +22,6 @@ class SelectionModel: NSObject {
 //                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
     private var vehicles: [Vehicle] = []
     private var planets: [Planet] = []
-    private var selectedPlanets: [String] = []
-    private var selctedVehicles: [String] = []
     private var vehicleParams: [VehicleViewEntity] = []
     private var token: String = ""
     var fetchDataSuccess: (FinalResult) -> Void = { _ in }
@@ -47,9 +45,6 @@ class SelectionModel: NSObject {
     func updateInfoSelection(section: Int, planet: String) {
         destinations[section].planet = planet
         guard let selectedPlanet = planets.first(where: {$0.name == planet}) else { return }
-        if !selectedPlanets.contains(planet) {
-            selectedPlanets.append(planet)
-        }
         let distance = selectedPlanet.distance
         destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name,
                                                                                  isSelected: false,
@@ -72,6 +67,28 @@ class SelectionModel: NSObject {
                 }
             }
         }
+    }
+    
+    func getListPlanetRequest() -> [String] {
+        return destinations.compactMap { $0.planet }
+    }
+    
+    func getListVehiclesRequest() -> [String] {
+        let vehicleEntities = destinations.map { $0.vehicleEntities.filter { $0.isSelected == true }}
+        let vehicles = vehicleEntities.flatMap { $0.map { $0.name} }
+        return vehicles
+    }
+    
+    func countTimeTaken() -> Int {
+        var time = 0
+        let planets = getListPlanetRequest()
+        let vehicles = getListVehiclesRequest()
+        for i in 0...3 {
+            let distance = self.planets.first { $0.name == planets[i]}?.distance ?? 0
+            let speed = self.vehicles.first { $0.name == vehicles[i]}?.speed ?? 1
+            time = time + Int(distance/speed)
+        }
+        return time
     }
 
 }

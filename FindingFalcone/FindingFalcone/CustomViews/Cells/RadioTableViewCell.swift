@@ -26,7 +26,7 @@ extension RadioTableViewCell {
     func configureSelectedItem(vehicleEnity: VehicleViewEntity) {
         let image = vehicleEnity.isSelected ? checkedImage : uncheckedImage
         radioImageView.image = image
-        optionLabel.text = vehicleEnity.name + " (\(vehicleEnity.total_no))"
+        optionLabel.text = vehicleEnity.name
         self.isUserInteractionEnabled = vehicleEnity.isEnable
         optionLabel.alpha = vehicleEnity.isEnable ? 1 : 0.5
     }

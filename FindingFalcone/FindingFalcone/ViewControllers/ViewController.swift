@@ -15,10 +15,6 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     var model = SelectionModel()
-    
-    /// hard code for testing
-    var planets: [String] = ["Donlon", "Enchai", "Jebing", "Sapir"]
-    var vehicles: [String] = ["Space pod", "Space rocket", "Space shuttle", "Space ship"]
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -29,13 +25,25 @@ class ViewController: UIViewController {
             let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let resultViewController = storyBoard.instantiateViewController(withIdentifier: "ResultViewController") as! ResultViewController
             resultViewController.result = result
+            resultViewController.timeTaken = self.model.countTimeTaken()
             self.navigationController?.pushViewController(resultViewController, animated: true)
         }
     }
 
     // MARK: - Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
-        model.findFalcone(params: DataRequest(token: TOKEN, planet_names: planets, vehicle_name: vehicles))
+        let planets = model.getListPlanetRequest()
+        let vehicles = model.getListVehiclesRequest()
+        if planets.count == 4 && vehicles.count == 4 {
+            model.findFalcone(params: DataRequest(token: TOKEN, planet_names: planets, vehicle_name: vehicles))
+        } else {
+            let alertController: UIAlertController = UIAlertController(title: "Oops!", message: "Please select completely.", preferredStyle: .alert)
+            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+                NSLog("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
 }
@@ -56,10 +64,6 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         model.didSelectVehicle(indexPath: indexPath)
         tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
-//        if !vehicles.contains(where:{ $0 == model.vehicles[indexPath.row - 1].name}) && vehicles.count < 1 {
-//            vehicles.append(model.vehicles[indexPath.row - 1].name)
-//            print(vehicles)
-//        }
     }
     
 }
