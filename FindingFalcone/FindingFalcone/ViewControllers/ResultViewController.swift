@@ -21,12 +21,9 @@ class ResultViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
 
     @IBAction func didTapStartAgain(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

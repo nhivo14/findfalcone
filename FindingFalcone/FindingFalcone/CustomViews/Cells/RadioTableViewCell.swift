@@ -23,10 +23,10 @@ class RadioTableViewCell: UITableViewCell {
 }
 
 extension RadioTableViewCell {
-    func configureSelectedItem(vehicleEnity: VehicleViewEntity) {
+    func configureSelectedItem(vehicleEnity: VehicleViewEntity, count: Int) {
         let image = vehicleEnity.isSelected ? checkedImage : uncheckedImage
         radioImageView.image = image
-        optionLabel.text = vehicleEnity.name
+        optionLabel.text = vehicleEnity.name + " (\(vehicleEnity.total_no - count))"
         self.isUserInteractionEnabled = vehicleEnity.isEnable
         optionLabel.alpha = vehicleEnity.isEnable ? 1 : 0.5
     }

@@ -9,8 +9,7 @@ import Foundation
 import Alamofire
 
 class NetworkService {
-//    let header: HTTPHeaders = ["Accept" : "application/json"]
-
+    
     private func makeRequest<T: Decodable>(url: String, method: HTTPMethod, parameters: Parameters? = nil, encoding: ParameterEncoding = JSONEncoding.default, header: HTTPHeaders? = nil, completion: @escaping (Result<T?, AFError>) -> Void) {
         AF.request(url, method: method, parameters: parameters, encoding: encoding, headers: header).response { response in
             switch response.result {
@@ -35,6 +34,7 @@ class NetworkService {
 }
 
 extension NetworkService {
+    
     func findFalcone(body: DataRequest, completion: @escaping (Result<FinalResult?, AFError>) -> Void) {
         let url = "https://findfalcone.herokuapp.com/find"
         let headers: HTTPHeaders = [.accept("application/json"), .contentType("application/json")]

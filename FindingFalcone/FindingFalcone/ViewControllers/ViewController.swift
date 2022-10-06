@@ -29,6 +29,12 @@ class ViewController: UIViewController {
             self.navigationController?.pushViewController(resultViewController, animated: true)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        model.initModel()
+        selectionsTableview.reloadData()
+    }
 
     // MARK: - Actions
     @IBAction func didTapFindFalconeButton(_ sender: Any) {
@@ -84,7 +90,9 @@ extension ViewController: UITableViewDataSource {
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "radioCell", for: indexPath) as? RadioTableViewCell else { return UITableViewCell() }
-            cell.configureSelectedItem(vehicleEnity: model.destinations[indexPath.section].vehicleEntities[indexPath.row - 1])
+            let entity = model.destinations[indexPath.section].vehicleEntities[indexPath.row - 1]
+            let countOfEntity = model.countOccurrences(vehicleName: entity.name)
+            cell.configureSelectedItem(vehicleEnity: entity, count: countOfEntity)
             cell.selectionStyle = .none
             return cell
         }

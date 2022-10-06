@@ -8,18 +8,7 @@
 import Foundation
 
 class SelectionModel: NSObject {
-//    private var listPlanets: [Planet] = [Planet(name: "Donlon", distance: 100),
-//                                 Planet(name: "Enchai", distance: 200),
-//                                 Planet(name: "Jebing", distance: 300),
-//                                 Planet(name: "Sapir", distance: 400),
-//                                 Planet(name: "Lerbin", distance: 500),
-//                                 Planet(name: "Pingasor", distance: 600)]
-//    
-//    private var listVehicles: [Vehicle] = [Vehicle(name: "Space pod", total_no: 2, max_distance: 200,
-//                                           speed: 2),
-//                                   Vehicle(name: "Space rocket", total_no: 1, max_distance: 300, speed: 4),
-//                                   Vehicle(name: "Space shuttle", total_no: 1, max_distance: 400, speed: 5),
-//                                   Vehicle(name: "Space ship", total_no: 2, max_distance: 600, speed: 10)]
+    
     private var vehicles: [Vehicle] = []
     private var planets: [Planet] = []
     private var vehicleParams: [VehicleViewEntity] = []
@@ -48,7 +37,7 @@ class SelectionModel: NSObject {
         let distance = selectedPlanet.distance
         destinations[section].vehicleEntities = vehicles.map { VehicleViewEntity(name: $0.name,
                                                                                  isSelected: false,
-                                                                                 isEnable: $0.max_distance >= distance,
+                                                                                 isEnable: $0.max_distance >= distance && ($0.total_no - countOccurrences(vehicleName: $0.name) > 0),
                                                                                  total_no: $0.total_no,
                                                                                  max_distance: $0.max_distance,
                                                                                  speed: $0.speed)}
@@ -89,6 +78,18 @@ class SelectionModel: NSObject {
             time = time + Int(distance/speed)
         }
         return time
+    }
+    
+    func countOccurrences(vehicleName: String) -> Int {
+        var count = 0
+        destinations.forEach {
+            $0.vehicleEntities.forEach {
+                if $0.name == vehicleName && $0.isSelected {
+                    count += 1
+                }
+            }
+        }
+        return count
     }
 
 }
